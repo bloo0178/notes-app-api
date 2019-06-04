@@ -1,7 +1,12 @@
+// https://babeljs.io/docs/en/babel-preset-env
+
 {
-    "plugins": ["source-map-support", "transform-runtime"],
-    "presets": [
+  "plugins": [
+    "source-map-support",
+    "transform-runtime"
+  ],
+  /*"presets": [
       ["env", { "node": "8.10" }],
       //"stage-3"
-    ]
-  }
+    ]*/
+}
