@@ -2,7 +2,9 @@
 
 Serverless API built specifically for the "notes-app-client." Inspired by the project used on serverless-stack.com. 
 
-# AWS Resources - Setup
+# Setup
+
+## AWS Resources
 
 The following resources will need to be configured to use this app. Currently this will need to be done manually. Future enhancement will include a Terraform script to automate this. 
 
@@ -24,4 +26,13 @@ The following resources will need to be configured to use this app. Currently th
 
 - Create and configure Cognito User Pool. Take note of your Pool Id and Pool ARN. Add an app client. Uncheck "Generate client secret" before creating. Take note of the App client id. Create a domain name for your app integration - either AWS-provided or on your own domain. This is for sign-up/ sign-in pages that are hosted by Amazon Cognito. 
 
-- 
+## Serverless API 
+
+- Run "serverless deploy" 
+
+# Testing
+
+## Local
+
+- Invoke local tests using the following command (Replace the function and path with whatever function/ data is being tested. Note: You will also need to create a note and use its id in the JSON mocks.): 
+$ serverless invoke local --function create --path mocks/create-event.json

@@ -3,7 +3,7 @@ import { success, failure } from "../libs/response-lib";
 
 export async function main(event, context) {
 	const params = {
-		TableName: notes, // may need to change; see create.js
+		TableName: "notes",
 		Key: {
 			userId: event.requestContext.identity.cognitoIdentityId,
 			noteId: event.pathParameters.id
