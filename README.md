@@ -2,6 +2,14 @@
 
 Serverless API built specifically for the "notes-app-client." Inspired by the project used on serverless-stack.com. 
 
+## Current Deployed Endpoints
+
+- POST - https://jhdpxm3s7k.execute-api.us-east-1.amazonaws.com/prod/notes
+- GET - https://jhdpxm3s7k.execute-api.us-east-1.amazonaws.com/prod/notes/{id}  
+- GET - https://jhdpxm3s7k.execute-api.us-east-1.amazonaws.com/prod/notes
+- PUT - https://jhdpxm3s7k.execute-api.us-east-1.amazonaws.com/prod/notes/{id}  
+- DELETE - https://jhdpxm3s7k.execute-api.us-east-1.amazonaws.com/prod/notes/{id}
+
 # Setup
 
 ## AWS Resources
@@ -25,6 +33,44 @@ The following resources will need to be configured to use this app. Currently th
 </CORSConfiguration>
 
 - Create and configure Cognito User Pool. Take note of your Pool Id and Pool ARN. Add an app client. Uncheck "Generate client secret" before creating. Take note of the App client id. Create a domain name for your app integration - either AWS-provided or on your own domain. This is for sign-up/ sign-in pages that are hosted by Amazon Cognito. 
+
+- Create and configure Cognito Identity Pool. Under Authentication providers -> Cognito tab, enter the User Pool ID and App Client ID of your User Pool. Edit the policy document for authenticated identities as follows (replacing S3 bucket name, api gateway region, and api gateway ID with your own): 
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "mobileanalytics:PutEvents",
+        "cognito-sync:*",
+        "cognito-identity:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::YOUR_S3_UPLOADS_BUCKET_NAME/private/${cognito-identity.amazonaws.com:sub}/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "execute-api:Invoke"
+      ],
+      "Resource": [
+        "arn:aws:execute-api:YOUR_API_GATEWAY_REGION:*:YOUR_API_GATEWAY_ID/*/*/*"
+      ]
+    }
+  ]
+}
+
 
 ## Serverless API 
 
