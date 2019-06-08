@@ -85,3 +85,11 @@ The following resources will need to be configured to use this app. Currently th
 
 - Invoke local tests using the following command (Replace the function and path with whatever function/ data is being tested. Note: You will also need to create a note and use its id in the JSON mocks.): 
 $ serverless invoke local --function create --path mocks/create-event.json
+
+## Live
+
+- Use the following to test against your deployed API, updating values with your own. Also note that this test was run using Git Bash on Windows. If you are using Command Prompt or another terminal, you may have to experiment with adding a leading slash to --path-template and also removing the trailing slash from the -invoke-url. 
+
+```
+npx aws-api-gateway-cli-test --username="admin@example.com" --password="Passw0rd!" --user-pool-id="USER_POOL_ID" --app-client-id="APP_CLIENT_ID" --cognito-region="us-east-1" --identity-pool-id="IDENTITY_POOL_ID" --invoke-url="https://jhdpxm3s7k.execute-api.us-east-1.amazonaws.com/prod/" --api-gateway-region="us-east-1" --path-template="notes" --method="POST" --body="{\"content\":\"hello world\",\"attachment\":\"hello.jpg\"}"
+```
